@@ -95,3 +95,9 @@
   node: v18.12.1
   React: 18.2.0
   ```
+  
+### Dashboard Page
+![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
+
+### Detail Page
+![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdetail.png)
