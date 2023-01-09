@@ -98,12 +98,13 @@
   
 ### Dashboard Page
 
-![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
+![SSdashboard](https://user-images.githubusercontent.com/90007713/211296371-6b76d375-16a9-44d0-8b40-2b95e7db7291.png)
+
 
 ### Detail Page
 
-![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
+![SSdetail](https://user-images.githubusercontent.com/90007713/211296393-4116c99c-a4a1-46a8-855f-4d1c3472aee1.png)
 
-![](https://github.com/skrbyrm/MSBI-Practise-Solution-SSIS/blob/master/Data/img/1.CotrolFlow-ForEachLoop.PNG)
 
-![](https://github.com/skrbyrm/MSBI-Practise-Solution-SSIS/blob/master/Data/img/2.DataFlow-ConditionalSplit-Lookup-DataConversion.PNG)
+
+
