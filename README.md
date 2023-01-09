@@ -97,7 +97,9 @@
   ```
   
 ### Dashboard Page
+
 ![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
 
 ### Detail Page
-![]([https://raw.githubusercontent.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/master/img/SSdetail.png](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png))
+
+![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
