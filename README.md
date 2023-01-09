@@ -103,3 +103,7 @@
 ### Detail Page
 
 ![](https://github.com/skrbyrm/Electrical-Energy-Analysis--React-Nodejs--Project/blob/master/img/SSdashboard.png)
+
+![](https://github.com/skrbyrm/MSBI-Practise-Solution-SSIS/blob/master/Data/img/1.CotrolFlow-ForEachLoop.PNG)
+
+![](https://github.com/skrbyrm/MSBI-Practise-Solution-SSIS/blob/master/Data/img/2.DataFlow-ConditionalSplit-Lookup-DataConversion.PNG)
