@@ -14,8 +14,9 @@ import { useNavigate } from "react-router-dom";
 import { getMe } from "../../state/index";
 import {rowData} from "scenes/dashboard";
 import WeeklyTable from "../../components/WeeklyTable";
-import DailyTable from "../../components/DailyTable";
+import {DailyTable} from "../../components/DailyTable";
 import HourlyTable from "../../components/HourlyTable";
+import BarChart from "components/BarChart";
 
 const Detail = () => {
   const theme = useTheme();
@@ -25,7 +26,6 @@ const Detail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isError } = useSelector((state) => state.auth);
-
 
   useEffect(() => {
     dispatch(getMe());
@@ -45,8 +45,9 @@ const Detail = () => {
   const date = new Date(rowData.date);
   const month = date.getMonth() + 1; // returns the month (0-11), so we add 1 to get the actual month number
   const day = date.getDate(); // returns the day of the month (1-31)
+  const year = date.getFullYear();
   const hour = date.getHours(); // returns the hour (0-23)
-
+  const formattedDate = `${day}-${month}-${year}-${hour}:00`;
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -88,6 +89,16 @@ const Detail = () => {
           }
         />
 
+        <Box
+          gridColumn="span 8"
+          gridRow="span 2"
+          backgroundColor={theme.palette.background.alt}
+          p="1rem"
+          borderRadius="0.55rem"
+        >
+          <BarChart />
+        </Box>
+
         <StatBox
           title="Toplam Aktif Tüketim"
           value={rowData && rowData.active_cons}
@@ -101,7 +112,7 @@ const Detail = () => {
 
         <StatBox
           title="Son Güncellenme"
-          value={rowData && `${month}/${day} ${hour}:00`}
+          value={rowData && formattedDate}
           description="*****"
           icon={
             <FlashOnIcon

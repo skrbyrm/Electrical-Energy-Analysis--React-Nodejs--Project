@@ -5,7 +5,7 @@ import config from "config";
 const baseUrl = process.env.REACT_APP_BACKEND_SERVER;
 
 const initialState = {
-  mode: "dark",
+  mode: "light",
 
   user: null,
   isError: false,
@@ -50,7 +50,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setMode: (state) => {
-      state.mode = state.mode === "dark" ? "light" : "dark";
+      state.mode = state.mode === "light" ? "dark" : "light";
     },
     reset: (state) => initialState
   },

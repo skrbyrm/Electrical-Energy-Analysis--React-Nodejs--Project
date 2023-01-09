@@ -1,8 +1,6 @@
 import React, { useState, useEffect }  from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
-import Papa from "papaparse";
-import { DownloadOutlined } from "@mui/icons-material";
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import {
   Box,
@@ -14,7 +12,7 @@ import {
   TableCell, 
   TableContainer, 
   TableHead, 
-  TableRow, TablePagination, Paper
+  TableRow
 } from "@mui/material";
 import Pagination from '@mui/material/Pagination';
 import StatBox from "components/StatBox";
@@ -22,6 +20,7 @@ import usePagination from "components/usePagination";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate} from "react-router-dom";
 import { getMe } from "../../state/index";
+import * as XLSX from 'xlsx';
 import config from "config";
 import axios from "axios";
 
@@ -90,14 +89,26 @@ const Dashboard = () => {
       headerName: "Tarih",
       field: "date",
       flex: 1,
-      cellRenderer:(params) => {
+      cellRenderer: (params) => {
         const date = new Date(params);
         const month = date.getMonth() + 1; // returns the month (0-11), so we add 1 to get the actual month number
         const day = date.getDate(); // returns the day of the month (1-31)
         const year = date.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
-        return formattedDate;
+        const hour = date.getHours(); // returns the hour (0-23)
+        const formattedDate = `${day}/${month}/${year}-${hour}:00`;
+      
+        // Compare the date to the current date
+        if (date < getTwoDaysAgo()) {
+          return (
+            <div style={{ backgroundColor: 'red', borderRadius: '5px', padding: '10px' }}>
+              {formattedDate}
+            </div>
+          );
+        } else {
+          return formattedDate;
+        }
       },
+      
       minWidth: isMobile ? "50px" : "70px"
     },
     
@@ -138,17 +149,18 @@ const Dashboard = () => {
       flex: 1, 
       cellRenderer: (params) => {
         if (params) {
-          return 'Cezada!';
+          return (
+            <div style={{ backgroundColor: 'red', borderRadius: '5px', padding: '10px' }}>
+              Cezada!
+            </div>
+          );
         } else if (!params) {
-          return 'Yok';
+          return (
+            <div style={{ backgroundColor: '#32CD32', borderRadius: '5px', padding: '10px' }}>
+              Yok
+            </div>
+          );
         }
-        return '';
-      },
-      cellStyle: (params) => {
-        if (params.value) {
-          return { backgroundColor: 'red' };
-        }
-        return null;
       },
       minWidth: isMobile ? "50px" : "70px",
     }
@@ -157,6 +169,17 @@ const Dashboard = () => {
 
   
   const count = data ? data.filter((row) => row.penalized === true).length : 0;
+
+  const maxDate = data.reduce((max, row) => {
+    const date = new Date(row.date);
+    return (date > max) ? date : max;
+  }, new Date(0));
+
+ const month = maxDate.getMonth() + 1; // returns the month (0-11), so we add 1 to get the actual month number
+ const day = maxDate.getDate(); // returns the day of the month (1-31)
+ const year = maxDate.getFullYear();
+ const hour = maxDate.getHours(); // returns the hour (0-23)
+ const newDate = `${day}-${month}-${year}-${hour}:00`;
 
   function getTwoDaysAgo() {
     const today = new Date();
@@ -170,12 +193,11 @@ const Dashboard = () => {
     return ( getTwoDaysAgo().getTime() > date.getTime());
   }).length : 0;
 
+
   const handleClick = (ssno) => {
     rowData = data.find(row => row.ssno === ssno);
     finalClick = rowData.ssno;
-    console.log(finalClick);
     navigate("/detail");
-
   }
 
   let [page, setPage] = useState(1);
@@ -189,32 +211,25 @@ const Dashboard = () => {
     _DATA.jump(p);
   };
 
+  
+  const downloadExcel=()=>{
+    const newData=data.map(row=>{
+      delete row.tableData
+      return row
+    })
+    const workSheet=XLSX.utils.json_to_sheet(newData)
+    const workBook=XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workBook,workSheet,"tüketimler")
+    //Binary string
+    XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+    //Download
+    XLSX.writeFile(workBook,"Özet.xlsx")
+  }
+
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
-        <Header title="Anasayfa" subtitle="Detay sayfasına gitmk için ilgili sayacın SSNO'suna tıklayın! " />
-        <Box>
-          <Button
-            onClick={() => {
-              const csv = Papa.unparse(data);
-              const link = document.createElement("a");
-              link.href = `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`;
-              link.download = "data.csv";
-              document.body.appendChild(link);
-              link.click();
-            }}
-            sx={{
-              backgroundColor: theme.palette.secondary.light,
-              color: theme.palette.background.alt,
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlined sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
+        <Header subtitle="Detay sayfasına gitmek için ilgili sayacın SSNO'ya tıklayın! " />
       </FlexBetween>
   
       <Box
@@ -259,7 +274,21 @@ const Dashboard = () => {
             />
           }
         />
+
+        <StatBox
+          title="Son Güncellenme"
+          value={newDate} 
+          description="*****"
+          icon={
+            <FlashOnIcon
+              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
+            />
+          }
+        />
+
+
         {/* ROW 2 */}
+        
         <Box
           gridColumn="span 12"
           gridRow="span 8"
@@ -291,16 +320,20 @@ const Dashboard = () => {
             },
           }}
         >
-          <div style={{ overflow: 'auto', maxHeight: '1000px' }}>
+          <div style={{ maxHeight: '1000px', margin: '20px 0' }}>
             <TableContainer component={Table}>
-            <Pagination
-              count={count_page}
-              size="large"
-              page={page}
-              variant="outlined"
-              shape="rounded"
-              onChange={handleChange}
-            />
+              <Button onClick={downloadExcel}                               
+              style={{
+                color: theme.palette.secondary[200]
+              }}>Excel olarak indir!</Button>
+              <Pagination
+                count={count_page}
+                size="large"
+                page={page}
+                variant="outlined"
+                shape="rounded"
+                onChange={handleChange}
+              />
               <Table>
                 <TableHead style={{ backgroundColor: `${theme.palette.secondary[700]}`, overflow: 'auto', position: 'sticky', top: '0' }}>
                   <TableRow>
@@ -313,15 +346,17 @@ const Dashboard = () => {
                   {_DATA.currentData().map(row => (
                     <TableRow key={row.ssno}>
                       {columns.map(column => (
-                        <TableCell key={column.field} style={{ backgroundColor: column.field === 'penalized' ? row[column.field] ? 'rgb(205,92,92)' : 'rgb(154,205,50)' : null, borderRadius: '80%' }}>
+                        <TableCell key={column.field} style={{ backgroundColor: 'transparent', borderRadius: '80%' }}>
+                        <div>
                           {column.field === 'ssno' ?
-                            <button onClick={() => handleClick(row.ssno)}
+                            <Button onClick={() => handleClick(row.ssno)}
                               style={{
-                                backgroundColor: "#4CAF50",
+                                backgroundColor: theme.palette.secondary[200],
                                 color: theme.palette.background.alt
                               }}
-                            >{row[column.field]}</button>
+                            >{row[column.field]}</Button>
                             : column.cellRenderer ? column.cellRenderer(row[column.field]) : row[column.field]}
+                            </div>
                         </TableCell>
                       ))}
                     </TableRow>

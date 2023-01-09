@@ -8,6 +8,7 @@ try {
     port: config.db.port,
     host: config.db.host,
     dialect: "mysql",
+    logging: false
   });
 } catch (error) {
   console.error("Error connecting to the database:", error);

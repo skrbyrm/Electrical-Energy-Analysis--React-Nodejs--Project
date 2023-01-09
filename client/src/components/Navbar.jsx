@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
-  Menu as MenuIcon,
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
@@ -20,8 +19,9 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+
 import { LogOut, reset } from "../state/index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
@@ -41,6 +41,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
     navigate("/");
   };
 
+  const admin = () => {
+    navigate("/admin");
+  };
+
+
   return (
     <AppBar
       sx={{
@@ -52,9 +57,23 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
         <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
+
+        <Link to="/dashboard" sx={{ textDecoration: "none" }}>
+        <Typography
+          style={{ textDecoration: "none" }}
+          sx={{
+            color: theme.palette.secondary[100],
+            fontSize: "1.7rem",
+            fontWeight: "bold",
+            margin: "1rem 0",
+            transform: "rotate(0deg)",
+            transition: "transform 0.2s ease-in-out",
+          }}
+        >
+          Anasayfa
+        </Typography>
+        </Link>
+
 
         </FlexBetween>
 
@@ -112,7 +131,8 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={logout}>Log Out</MenuItem>
+              <MenuItem onClick={logout}>Çıkış!</MenuItem>
+              <MenuItem onClick={admin}>Admin</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>
