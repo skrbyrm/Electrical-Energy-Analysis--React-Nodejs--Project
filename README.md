@@ -95,3 +95,16 @@
   node: v18.12.1
   React: 18.2.0
   ```
+  
+### Dashboard Page
+
+![SSdashboard](https://user-images.githubusercontent.com/90007713/211296371-6b76d375-16a9-44d0-8b40-2b95e7db7291.png)
+
+
+### Detail Page
+
+![SSdetail](https://user-images.githubusercontent.com/90007713/211296393-4116c99c-a4a1-46a8-855f-4d1c3472aee1.png)
+
+
+
+
