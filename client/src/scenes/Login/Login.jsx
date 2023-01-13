@@ -67,7 +67,7 @@ const Login = () => {
             </Typography>
           )}
           <Typography variant="h5" gutterBottom>
-            Sign In
+            Giriş Yap!
           </Typography>
           <TextField
             label="Email"
@@ -80,7 +80,7 @@ const Login = () => {
             style={{ backgroundColor: "transparent" }}
           />
           <TextField
-            label="Password"
+            label="Şifre"
             fullWidth
             type="password"
             value={password}
@@ -90,15 +90,7 @@ const Login = () => {
             marginTop="1rem"
             style={{ backgroundColor: "transparent" }}
           />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={rememberMe}
-                onChange={handleRememberMeChange}
-              />
-            }
-            label="Remember Me"
-          />
+
           <Button
             type="submit"
             variant="contained"
@@ -106,7 +98,7 @@ const Login = () => {
             fullWidth
             style={{ marginTop: "1rem" }}
           >
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? "Loading..." : "Giriş!"}
           </Button>
         </form>
       </Box>

@@ -100,7 +100,7 @@ const Detail = () => {
         </Box>
 
         <StatBox
-          title="Toplam Aktif Tüketim"
+          title="Toplam Aktif Tüketim (kWh)"
           value={rowData && rowData.active_cons}
           description="*****"
           icon={

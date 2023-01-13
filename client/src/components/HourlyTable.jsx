@@ -78,37 +78,37 @@ const HourlyData = () => {
       minWidth: isMobile ? "50px" : "70px"
     },
     {
-      headerName: "Aktif SD",
+      headerName: "Aktif SD (kWh)",
       field: "active",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
     },
     {
-      headerName: "Endüktif SD",
+      headerName: "Endüktif SD Ri(kVArh)",
       field: "inductive",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
     },
     {
-      headerName: "Kapasitif SD",
+      headerName: "Kapasitif SD Rc(kVArh)",
       field: "capacitive",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
     },
     {
-      headerName: "Aktif Tüketim",
+      headerName: "Aktif Tüketim (kWh)",
       field: "active_cons",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
     },
     {
-      headerName: "Endüktif Tüketim",
+      headerName: "Endüktif Tüketim Ri(kVArh)",
       field: "inductive_cons",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
     },
     {
-      headerName: "Kapasitif Tüketim",
+      headerName: "Kapasitif Tüketim Rc(kVArh)",
       field: "capacitive_cons",
       flex: 0.5,
       minWidth: isMobile ? "50px" : "70px",
