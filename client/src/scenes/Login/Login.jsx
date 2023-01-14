@@ -11,6 +11,7 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
+import InputMask from 'react-input-mask';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -80,16 +81,25 @@ const Login = () => {
             style={{ backgroundColor: "transparent" }}
           />
           <TextField
-            label="Şifre"
-            fullWidth
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="******"
-            margin="normal"
-            marginTop="1rem"
-            style={{ backgroundColor: "transparent" }}
-          />
+              fullWidth
+              label="Password"
+              type="password"
+              value={password}
+              margin="normal"
+              marginTop="1rem"
+              placeholder="******"
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ backgroundColor: "transparent" }}
+          >
+              <InputMask
+                  name='password'
+                  mask="*"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="******"
+              />
+          </TextField>
 
           <Button
             type="submit"
