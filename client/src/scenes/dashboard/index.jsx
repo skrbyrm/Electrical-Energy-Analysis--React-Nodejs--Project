@@ -97,8 +97,7 @@ const Dashboard = () => {
         const year = date.getFullYear();
         const hour = date.getHours();
         const formattedDate = `${day}/${month}/${year}-${hour}:00`;
-        return formattedDate;
-      
+     
         // Compare the date to the current date
         if (date < getTwoDaysAgo()) {
           return (

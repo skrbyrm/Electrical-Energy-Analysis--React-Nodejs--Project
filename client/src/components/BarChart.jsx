@@ -41,10 +41,11 @@ const BarGraph = () => {
       flex: 1,
       cellRenderer:(params) => {
         const date = new Date(params);
-        const month = date.getMonth() + 1; // returns the month (0-11), so we add 1 to get the actual month number
-        const day = date.getDate(); // returns the day of the month (1-31)
+        date.setHours(date.getHours() - 3);
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
         const year = date.getFullYear();
-        const hour = date.getHours(); // returns the hour (0-23)
+        const hour = date.getHours();
         const formattedDate = `${day}/${month}/${year}-${hour}:00`;
         return formattedDate;
       },
@@ -74,11 +75,13 @@ const BarGraph = () => {
 
   const getMonth = (dateString) => {
     const date = new Date(dateString);
+    date.setHours(date.getHours() - 3);
     return date.getMonth() + 1; // getMonth() returns the month (0-11), so we add 1 to get the actual month number
   }
   
   const getDay = (dateString) => {
     const date = new Date(dateString);
+    date.setHours(date.getHours() - 3);
     return date.getDate(); // getDate() returns the day of the month (1-31)
   }
   const currentMonth = new Date().getMonth() + 1; // get the current month number
